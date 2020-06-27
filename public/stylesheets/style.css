@@ -1,0 +1,55 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+
+/* config défaut a*/
+
+a {
+  color: #00B7FF;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a:hover,
+a:active {
+  color: #00B7FF;
+  text-decoration: none;
+}
+
+a.danger {
+  color: red;
+}
+
+
+/* class pour donner espace */
+
+.spacing {
+  padding: 4% 0 4% 0;
+}
+
+
+/* class pour les erreurs inputs lorsque touché et invalide */
+
+.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+
+/* CSS Medi Queries : Responsive Adaptation */
+
+@media screen and (max-width: 1000px) {
+  .icon {
+    margin: 0;
+    padding: 0;
+    float: left;
+  }
+  .icons {
+    height: 45%;
+  }
+  #sarahLogo {
+    display: none;
+  }
+}

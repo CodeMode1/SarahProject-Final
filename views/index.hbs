@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="/">
+    <title>Sarah 2.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- BootStrap online CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <!-- endinject -->
+    <!--<link rel='stylesheet' href='/stylesheets/style.css'/>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- 1. Loader librairies -->
+    <!-- Polyfill(s) pour vieux browsers -->
+    <script src="js/vendor/es6-shim/es6-shim.min.js"></script>
+
+    <script src="js/vendor/zone.js/dist/zone.js"></script>
+    <script src="js/vendor/reflect-metadata/Reflect.js"></script>
+    <script src="js/vendor/systemjs/dist/system.src.js"></script>
+
+     <!-- Scheduler telerik -->
+    <!-- Common Kendo UI CSS for web widgets and widgets for data visualization. -->
+    <link rel="stylesheet" href="/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="/styles/kendo.default.min.css" />
+    <link rel="stylesheet" href="/styles/kendo.default.mobile.min.css" />
+
+    <script src="/agenda/jquery.min.js"></script>
+    <script src="/agenda/kendo.all.min.js"></script>
+    <script src="/agenda/kendo.timezones.min.js"></script>
+
+    <!-- 2. Configurer SystemJS -->
+    <script src="systemjs.config.js"></script>
+</head>
+<body>
+<my-app>Loading...</my-app>
+
+<script>
+    System.import('app').catch(function(err){ console.error(err);  });
+</script>
+</body>
+</html>

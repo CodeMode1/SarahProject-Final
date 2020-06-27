@@ -1,0 +1,120 @@
+<section>
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <div class="col-md-7">
+                <label id="searchLabel" class="col-md-3 control-label" for="searchNumClient">Rechercher par Numéro de Client : </label>
+                <div class="input-group col-md-5">
+                    <span class="input-group-addon" aria-hidden="true" id="searchNumClient"><button id="boutonSearchNoClient" (click)="onSearchNoClient()" class="glyphicon glyphicon-search"></button>
+                    </span>
+                    <input #input (click)="logInput(input.value)" [class.erreurSearchClient]="boolSearchClient" type="text" placeholder="No Client Search"
+                        class="form-control" [(ngModel)]="noClientTextSearch">
+                </div>
+                <p class="text-danger" id="erreurCode" [hidden]="!boolSearchClient">
+                    {{erreurCodeClient}}
+                </p>
+            </div>
+            <div class="col-md-5">
+                <div class="widgets">
+                    <span class="glyphicon glyphicon-plus size" aria-hidden="true"><a [routerLink]="['creer']">Créer<span>Crée un nouveau client</span></a>
+                    </span>
+                </div>
+                <div class="widgets">
+                    <span class="glyphicon glyphicon-duplicate size" aria-hidden="true"><a [class.disableA]="!this.clientSelected" [routerLink]="[this.noClient, 'copie']">Copie<span>Copie le client sélectionné</span></a>
+                    </span>
+                </div>
+                <div class="widgets">
+                    <span class="glyphicon glyphicon-pencil size" aria-hidden="true"><a [class.disableA]="!this.clientSelected" [routerLink]="[this.noClient, 'edit']">Modifier<span>Modifie le client sélectionné</span></a>
+                    </span>
+                </div>
+                <div class="widgets input-group col-md-2">
+                    <span class="glyphicon glyphicon-minus size" aria-hidden="true"><a [class.disableA]="!this.clientSelected" (click)="eventModal()" data-toggle="modal" data-target="#modalSupp" data-backdrop="static" data-keyboard="false">Supprimer<span>Supprime le client sélectionné</span></a>
+                    </span>
+                </div>
+                <div class="widgets input-group col-md-5">
+                    <button id="boutonSpecialSearch" (click)="onSpecialSearch()" class="glyphicon glyphicon-search"></button>
+                    <input #input2 (click)="logInput(input2.value)" [class.erreurSpecialSearch]="boolFullSearch" type="text" placeholder="Full Text Search"
+                        class="form-control" [(ngModel)]="specialTextSearch">
+                    <p class="text-danger" id="erreurFullSearch" [hidden]="!boolFullSearch">
+                        {{erreurSpecialSearch}}
+                    </p>
+                </div>
+            </div>
+            <!-- modal -->
+            <div id="modalSupp" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- modal content -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Confirmer la {{this.titreModal}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Cliquez OK pour confirmer ou annulez.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" (click)="onDelete()" id="modalOuvert" data-dismiss="modal">OK</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-heading">
+            <h3>{{titre}}</h3>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>NO CLIENT</th>
+                        <th>NO COMPTE</th>
+                        <th>COMPAGNIE</th>
+                        <th>PRÉNOM</th>
+                        <th>NOM</th>
+                        <th>CELLULAIRE</th>
+                        <th>COURRIEL</th>
+                        <th>ADRESSE</th>
+                        <th>VILLE</th>
+                        <th>CODE POSTAL</th>
+                        <th>TÉL PRINCIPAL</th>
+                        <th>FAX</th>
+                        <th>CRÉÉ PAR</th>
+                        <th>CRÉÉ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let client of clients | paginate: {itemsPerPage: 5, currentPage: page, id: 'pagerClient' } | noClientPipe:noClientFiltreList; let i=index"
+                        (click)="clientSelect(client)" [class.estSelectRange]="this.noClient == client.noClient">
+                        <td>{{client?.noClient}}</td>
+                        <td>{{client?.noCompte}}</td>
+                        <td>{{client?.compagnie | capitalizePipe}}</td>
+                        <td>{{client?.prenom | capitalizePipe}}</td>
+                        <td>{{client?.nom | capitalizePipe}}</td>
+                        <td>{{client?.cell}}</td>
+                        <td>{{client?.courriel}}</td>
+                        <td>{{client?.adresse | capitalizePipe}}</td>
+                        <td>{{client?.ville | capitalizePipe}}</td>
+                        <td>{{client?.codePostal }}</td>
+                        <td>{{client?.telPrincipal}}</td>
+                        <td>{{client?.fax}}</td>
+                        <td>{{client?.creerPar | capitalizePipe}}</td>
+                        <td>{{client?.dateCree | date:'yyyy-MM-dd HH:mm'}}</td>
+                    </tr>
+                    <tr *ngIf="!clients || !clients.length">
+                        <td class="bg-danger" colspan="14">Aucuns clients</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <pagination-controls (pageChange)="page = $event" id="pagerClient" maxSize="20" directionLinks="true">
+        </pagination-controls>
+    </div>
+</section>
+<div class="col-md-12 footer">
+    <mon-spinner [estRunning]="estRequete"></mon-spinner>
+    <div class="col-md-12 divFooter">
+        <button type="button" class="btn btn-primary" (click)="actualiser()">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+            Actualiser
+        </button>
+    </div>
+</div>

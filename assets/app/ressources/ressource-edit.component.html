@@ -1,0 +1,28 @@
+<section class="col-md-12">
+    <form id="ressource-edit" (ngSubmit)="onSubmit(f.value)" #f="ngForm" *ngIf="myRessource">
+        <div class="col-md-2 form-group">
+            <div class="alert alert-success" role="alert" *ngIf="this.succesUserMessage">
+                <p>{{this.userMessage}}</p>
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="this.erreurUserMessage">
+                <p>{{this.erreurMessage}}</p>
+            </div>
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" (ngModelChange)="inputChange($event)" class="form-control" name="nom" placeholder="name" [(ngModel)]="this.myRessource.nom"
+                required>
+            <label for="couleur">Couleur</label>
+            <input type="color" id="couleur" name="couleur" class="form-control" [(ngModel)]="this.myRessource.couleur" (ngModelChange)="couleurChange($event)"
+                required>
+        </div>
+        <div class="col-md-12 form-group">
+            <!-- Ajout mode -->
+            <div class="boutonsRessources">
+                <button class="btn btn-success" type="submit" *ngIf="estAjout" [disabled]="!f.valid || !activeBoutons">Créer</button>
+                <!-- Edit mode -->
+                <button class="btn btn-success" type="submit" *ngIf="!estAjout" [disabled]="!f.valid || !activeBoutons">Sauvegarder</button>
+                <button class="btn btn-danger" type="button" *ngIf="!estAjout" (click)="supprimerRessource()">Supprimer</button>
+                <button class="btn btn-primary" type="button" *ngIf="!estAjout" (click)="viderRessource()">Nouveau</button>
+            </div>
+        </div>
+    </form>
+</section>

@@ -1,0 +1,119 @@
+<section>
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <div class="col-md-7">
+                <label id="searchLabel" class="col-md-3 control-label" for="searchNoContrat">Rechercher par Numéro de Contrat : </label>
+                <div class="input-group col-md-5">
+                    <span class="input-group-addon" aria-hidden="true" id="searchNoContrat"><button id="boutonSearchNoContrat" (click)="onSearchNoContrat()" class="glyphicon glyphicon-search"></button>
+                    </span>
+                    <input #input (click)="logInput(input.value)" [class.erreurSearchNoContrat]="boolSearchContrat" type="text" placeholder="No Contrat Search"
+                        class="form-control" [(ngModel)]="noContratTextSearch">
+                </div>
+                <p class="text-danger" id="erreurContrat" [hidden]="!boolSearchContrat">
+                    {{erreurNoContrat}}
+                </p>
+            </div>
+            <div class="col-md-5">
+                <div class="widgets">
+                    <span class="glyphicon glyphicon-plus size" aria-hidden="true"><a [routerLink]="['creer']">Créer<span>Crée un nouvel évènement</span></a>
+                    </span>
+                </div>
+                <div class="widgets">
+                    <span class="glyphicon glyphicon-duplicate size" aria-hidden="true"><a [class.disableA]="!this.evenementSelected" [routerLink]="[this.noEvenement, 'copie']">Copie<span>Copie l'évènement sélectionné</span></a>
+                    </span>
+                </div>
+                <div class="widgets">
+                    <span class="glyphicon glyphicon-pencil size" aria-hidden="true"><a [class.disableA]="!this.evenementSelected" [routerLink]="[this.noEvenement, 'edit']">Modifier<span>Modifie l'évènement sélectionné</span></a>
+                    </span>
+                </div>
+                <div class="widgets input-group col-md-2">
+                    <span class="glyphicon glyphicon-minus size" aria-hidden="true"><a [class.disableA]="!this.evenementSelected" (click)="eventModal()" data-toggle="modal" data-target="#modalSupp" data-backdrop="static" data-keyboard="false">Supprimer<span>Supprime l'évènement sélectionné</span></a>
+                    </span>
+                </div>
+                <div class="widgets input-group col-md-5">
+                    <button id="boutonSpecialSearch" (click)="onSpecialSearch()" class="glyphicon glyphicon-search"></button>
+                    <input #input2 (click)="logInput(input2.value)" [class.erreurSpecialSearch]="boolFullSearch" type="text" placeholder="Full Text Search"
+                        class="form-control" [(ngModel)]="specialTextSearch">
+                    <p class="text-danger" id="erreurFullSearch" [hidden]="!boolFullSearch">
+                        {{erreurSpecialSearch}}
+                    </p>
+                </div>
+            </div>
+            <!-- modal -->
+            <div id="modalSupp" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- modal content -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Confirmer la {{this.titreModal}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Cliquez OK pour confirmer ou annulez.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" (click)="onDelete()" id="modalOuvert" data-dismiss="modal">OK</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-heading">
+            <h3>{{titre}}</h3>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>NO CONTRAT</th>
+                        <th>NOM</th>
+                        <th>DATE ÉVÈNEMENT</th>
+                        <th>CONTACT</th>
+                        <th>NOTES</th>
+                        <th>CLIENT</th>
+                        <th>ÉTAT</th>
+                        <th>DATE DE SOUMISSION</th>
+                        <th>DATE NON RETENU</th>
+                        <th>DATE CONFIRMATION</th>
+                        <th>DATE ANNULATION</th>
+                        <th>DATE FACTURATION</th>
+                        <th>CRÉÉ PAR</th>
+                        <th>CRÉÉ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let evenement of evenements | noEvenementPipe:noContratFiltreList; let i=index" (click)="evenementSelect(evenement)"
+                        [class.estSelectRange]="this.noEvenement == evenement.noEvenement">
+                        <td>{{evenement?.noEvenement}}</td>
+                        <td>{{evenement?.nom}}</td>
+                        <td>{{evenement?.dateEvenement}}</td>
+                        <td>{{evenement?.contact}}</td>
+                        <td>{{evenement?.notes}}</td>
+                        <td>{{evenement?.client}}</td>
+                        <td>{{evenement?.selectEtat}}</td>
+                        <td>{{evenement?.dateSoumission}}</td>
+                        <td>{{evenement?.dateNonRetenu}}</td>
+                        <td>{{evenement?.dateConfirmation}}</td>
+                        <td>{{evenement?.dateAnnulation}}</td>
+                        <td>{{evenement?.dateFacturation}}</td>
+                        <td>{{evenement?.creerPar}}</td>
+                        <td>{{evenement?.dateCree | date:'yyyy-MM-dd HH:mm'}}</td>
+                    </tr>
+                    <tr *ngIf="!evenements || !evenements.length">
+                        <td class="bg-danger" colspan="14">Aucuns évènements</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<div class="col-md-12 footer">
+    <div class="col-md-12 divFooter">
+        <mon-spinner [estRunning]="estRequete"></mon-spinner>
+        <button type="button" class="btn btn-primary" (click)="actualiser()">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+            Actualiser
+        </button>
+    </div>
+</div>
