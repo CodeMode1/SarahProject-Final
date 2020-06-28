@@ -109,4 +109,4 @@ Ceux que j'ai choisi sont fonctionnels dans mon projet seulement dans google chr
 
 ## Autheur
 
-Daphné Dargis-Cournoyer
+Daphné D-Cournoyer
