@@ -30,7 +30,7 @@
     "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.4.12",
     "mongoose-unique-validator": "^1.0.2",
-    "morgan": "~1.6.1",
+    "morgan": "~1.10.0",
     "ng2-bootstrap": "^1.0.17",
     "ng2-datetime-picker": "^0.11.3",
     "ng2-pagination": "^1.0.1",
