@@ -1,6 +1,6 @@
 ## Agenda Sarah 2.0
+Project Span: September 2016 - December 2016
 
-Project Span - September 2016 - December 2016
 
 Application web côté client : Angular2/Typescript/JS
 		Côté serveur : NodeJS , RESTful API : Express
